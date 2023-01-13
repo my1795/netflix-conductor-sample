@@ -4,7 +4,7 @@ services:
   conductor-server:
     environment:
       - CONFIG_PROP=config-local.properties
-    image: mustafasdocker1/conductor:server-v3.13.2
+    image: mustafasdocker1/conductor-server:v3.13.2
     networks:
       - internal
     ports:
@@ -16,6 +16,7 @@ services:
       retries: 12
     links:
       - elasticsearch:es
+      - postgres:potsgres
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -28,7 +29,7 @@ services:
   conductor-ui:
     environment:
       - WF_SERVER=http://conductor-server:8080
-    image: mustafasdocker1/conductor:ui-v3.13.2
+    image: mustafasdocker1/conductor-ui:v3.13.2
     build:
       context: ../
       dockerfile: docker/ui/Dockerfile
@@ -39,6 +40,28 @@ services:
     links:
       - conductor-server
     stdin_open: true
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=conductor
+      - POSTGRES_PASSWORD=conductor
+    volumes:
+      - pgdata-conductor:/var/lib/postgresql/data
+    networks:
+      - internal
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/5432'
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"
 
   elasticsearch:
     image: elasticsearch:7.17.8
@@ -66,6 +89,8 @@ services:
         max-file: "3"
 
 volumes:
+  pgdata-conductor:
+    driver: local
   esdata-conductor:
     driver: local
 

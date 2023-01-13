@@ -1,0 +1,32 @@
+{
+  "name": "import_user",
+  "description": "import_user",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "task_1",
+      "taskReferenceName": "task_1",
+      "inputParameters": {
+        "mod": "${workflow.input.mod}",
+        "oddEven": "${workflow.input.oddEven}"
+      },
+      "type": "SIMPLE"
+    },
+    {
+      "name": "event_task",
+      "taskReferenceName": "event_0",
+      "inputParameters": {
+        "mod": "${workflow.input.mod}",
+        "oddEven": "${workflow.input.oddEven}"
+      },
+      "type": "EVENT",
+      "sink": "conductor"
+    }
+  ],
+  "outputParameters": {
+    "statues": "${get_es_1.output..status}",
+    "workflowIds": "${get_es_1.output..workflowId}"
+  },
+  "ownerEmail": "example@email.com",
+  "schemaVersion": 2
+}
