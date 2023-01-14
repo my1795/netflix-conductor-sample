@@ -1,0 +1,72 @@
+{
+  "name": "population_summary",
+  "description": "Makes a HTTP request to get population of a country outputs summary",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "get_population_data",
+      "taskReferenceName": "get_population_data_ref",
+      "inputParameters": {
+        "http_request": {
+          "uri": "https://datausa.io/api/data?drilldowns=Nation&measures=Population",
+          "method": "GET"
+        }
+      },
+      "type": "HTTP"
+    },
+    {
+      "name": "population_fork",
+      "taskReferenceName": "population_fork_ref",
+      "inputParameters": {},
+      "type": "FORK_JOIN",
+      "forkTasks": [
+        [
+          {
+            "name": "summarize_data",
+            "taskReferenceName": "summarize_data_ref",
+            "type": "SIMPLE",
+            "inputParameters": {
+              "data": "${get_population_data_ref.output.response.body.data}"
+            },
+            "outputKeys": [
+              "data_summary"
+            ]
+          }
+        ],
+        [
+          {
+            "name": "summarize_source",
+            "taskReferenceName": "summarize_source_ref",
+            "type": "SIMPLE",
+            "inputParameters": {
+              "source": "${get_population_data_ref.output.response.body.source}"
+            },
+            "outputKeys": [
+              "source_summary"
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "name": "population_join",
+      "taskReferenceName": "population_join_ref",
+      "inputParameters": {},
+      "type": "JOIN",
+      "joinOn": [
+        "summarize_data_ref",
+        "summarize_source_ref"
+      ]
+    }
+  ],
+  "outputParameters": {
+    "data_summary": "${summarize_data_ref.output.data_summary}",
+    "source_summary": "${summarize_source_ref.output.source_summary}"
+  },
+  "schemaVersion": 2,
+  "restartable": true,
+  "workflowStatusListenerEnabled": false,
+  "ownerEmail": "example@email.com",
+  "timeoutPolicy": "ALERT_ONLY",
+  "timeoutSeconds": 0
+}
