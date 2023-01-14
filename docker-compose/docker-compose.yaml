@@ -1,9 +1,9 @@
-version: '2.3'
+version: '3.9'
 
 services:
   conductor-server:
     environment:
-      - CONFIG_PROP=config-local.properties
+      - CONFIG_PROP=config-postgres.properties
     image: mustafasdocker1/conductor-server:v3.13.2
     networks:
       - internal
@@ -16,7 +16,7 @@ services:
       retries: 12
     links:
       - elasticsearch:es
-      - postgres:potsgres
+      - postgres:postgresdb
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -25,14 +25,10 @@ services:
       options:
         max-size: "1k"
         max-file: "3"
-
   conductor-ui:
     environment:
       - WF_SERVER=http://conductor-server:8080
     image: mustafasdocker1/conductor-ui:v3.13.2
-    build:
-      context: ../
-      dockerfile: docker/ui/Dockerfile
     networks:
       - internal
     ports:
@@ -64,7 +60,8 @@ services:
         max-file: "3"
 
   elasticsearch:
-    image: elasticsearch:7.17.8
+    platform: linux/amd64
+    image: elasticsearch:6.8.15
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx1024m"
       - transport.host=0.0.0.0
@@ -87,7 +84,6 @@ services:
       options:
         max-size: "1k"
         max-file: "3"
-
 volumes:
   pgdata-conductor:
     driver: local
