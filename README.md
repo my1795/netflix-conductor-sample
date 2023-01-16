@@ -120,7 +120,7 @@ STEPS:
    ],
    "active": true
    }'`
-4. Send pizza ready event handler to signal pizza is ready by restaurant
+4. Send pizza ready event handler to signal pizza is ready by restaurant:  
 `
    curl -X 'POST' \
    'http://localhost:8080/api/event' \
