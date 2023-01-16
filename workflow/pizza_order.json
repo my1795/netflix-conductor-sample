@@ -1,0 +1,43 @@
+{
+  "name": "pizza_order",
+  "description": "Takes pizza name as input and waits restaurant until pizza is prepared then gives it to courier to deliver",
+  "version": 1,
+  "inputParameters": [
+    "pizzaOrder"
+  ],
+  "tasks": [
+    {
+      "inputParameters": {},
+      "name": "notify_restaurant_event",
+      "taskReferenceName": "notify_restaurant_event_ref",
+      "type": "EVENT",
+      "sink": "conductor"
+    },
+    {
+      "inputParameters": {},
+      "name": "restaurant_pizza_ready_signal",
+      "taskReferenceName": "restaurant_pizza_ready_signal_ref",
+      "type": "WAIT"
+    },
+    {
+      "name": "assign_order_to_courier",
+      "taskReferenceName": "assign_order_to_courier_ref",
+      "inputParameters": {
+        "pizzaName": "{$workflow.input.pizzaName}"
+      },
+      "type": "SIMPLE",
+      "outputKeys": [
+        "courier"
+      ]
+    }
+  ],
+  "outputParameters": {
+    "courier": "${assign_order_to_courier_ref.output.courier}"
+  },
+  "schemaVersion": 2,
+  "restartable": true,
+  "workflowStatusListenerEnabled": true,
+  "ownerEmail": "example@email.com",
+  "timeoutPolicy": "ALERT_ONLY",
+  "timeoutSeconds": 0
+}

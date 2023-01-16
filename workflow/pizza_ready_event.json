@@ -1,0 +1,14 @@
+{
+  "name": "pizza_ready_event",
+  "event": "conductor:pizza_prepare:complete_pizza_prepare_ref",
+  "actions": [
+    {
+      "action": "complete_task",
+      "complete_task": {
+        "workflowId": "${sourceWorkflowId}",
+        "taskRefName": "restaurant_pizza_ready_signal_ref"
+      }
+    }
+  ],
+  "active": true
+}

@@ -8,8 +8,8 @@
         <version>3.0.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>workers</artifactId>
+    <groupId>com.netflix</groupId>
+    <artifactId>worker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>workers</name>
     <description>workers</description>
@@ -21,7 +21,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -46,6 +45,18 @@
             <groupId>com.netflix.conductor</groupId>
             <artifactId>conductor-client-spring</artifactId>
             <version>3.13.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.netflix.conductor/conductor-common -->
+        <dependency>
+            <groupId>com.netflix.conductor</groupId>
+            <artifactId>conductor-common</artifactId>
+            <version>3.13.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

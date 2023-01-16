@@ -3,12 +3,9 @@ package com.netflix.worker.sample;
 import com.netflix.conductor.client.worker.Worker;
 import com.netflix.conductor.common.metadata.tasks.Task;
 import com.netflix.conductor.common.metadata.tasks.TaskResult;
-import com.netflix.worker.model.PopulationElement;
 import com.netflix.worker.model.SourceElement;
 import lombok.extern.log4j.Log4j2;
-import net.bytebuddy.dynamic.scaffold.MethodGraph;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 

@@ -76,14 +76,28 @@ services:
       - 9300:9300
     healthcheck:
       test: timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9300'
-      interval: 5s
+      interval: 10s
       timeout: 5s
-      retries: 12
+      retries: 50
     logging:
       driver: "json-file"
       options:
         max-size: "1k"
         max-file: "3"
+
+  workers-app:
+    depends_on:
+      conductor-server:
+        condition: service_healthy
+    build: ../workers
+    restart: on-failure
+    networks:
+      - internal
+    ports:
+      - 8082:8082
+    stdin_open: true
+    tty: true
+
 volumes:
   pgdata-conductor:
     driver: local

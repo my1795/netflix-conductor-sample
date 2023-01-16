@@ -1,0 +1,23 @@
+{
+  "name": "pizza_prepare",
+  "description": "This is triggered by pizza order event  to  orchestrate pizza preparation process",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "complete_pizza_prepare",
+      "taskReferenceName": "complete_pizza_prepare_ref",
+      "inputParameters": {
+        "sourceWorkflowId": "${workflow.input.sourceWorkflowId}"
+      },
+      "type": "EVENT",
+      "sink": "conductor"
+    }
+  ],
+
+  "schemaVersion": 2,
+  "restartable": true,
+  "workflowStatusListenerEnabled": true,
+  "ownerEmail": "example@email.com",
+  "timeoutPolicy": "ALERT_ONLY",
+  "timeoutSeconds": 0
+}

@@ -1,0 +1,16 @@
+{
+  "name": "pizza_order_event",
+  "event": "conductor:pizza_order:notify_restaurant_event_ref",
+  "actions": [
+    {
+      "action": "start_workflow",
+      "start_workflow": {
+        "name": "pizza_prepare",
+        "input": {
+          "sourceWorkflowId": "${workflowInstanceId}"
+        }
+      }
+    }
+  ],
+  "active": true
+}

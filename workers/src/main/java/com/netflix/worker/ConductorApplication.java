@@ -3,6 +3,7 @@ package com.netflix.worker;
 import com.netflix.conductor.client.automator.TaskRunnerConfigurer;
 import com.netflix.conductor.client.http.TaskClient;
 import com.netflix.conductor.client.worker.Worker;
+import com.netflix.worker.sample.CourierWorker;
 import com.netflix.worker.sample.DataSummary;
 import com.netflix.worker.sample.SourceSummary;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,7 @@ public class ConductorApplication {
 
     public static void main(String[] args) {
         TaskClient taskClient = new TaskClient();
-        taskClient.setRootURI("http://localhost:8080/api/"); // Point this to the server API
+        taskClient.setRootURI("http://conductor-server:8080/api/"); // Point this to the server API
 
         int threadCount = 1; // number of threads used to execute workers.  To avoid starvation, should be
         // same or more than number of workers
@@ -24,9 +25,11 @@ public class ConductorApplication {
 
         Worker dataSummary = new DataSummary();
         Worker sourceSummary = new SourceSummary();
+        Worker courierWorker = new CourierWorker();
 
         workers.add(dataSummary);
         workers.add(sourceSummary);
+        workers.add(courierWorker);
         // Create TaskRunnerConfigurer
         TaskRunnerConfigurer configurer =
                 new TaskRunnerConfigurer.Builder(taskClient, workers)
