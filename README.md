@@ -84,9 +84,7 @@ Execution section in the UI shows workflow executions
  ![img.png](pizzaorderdiagram.png)
 ![img.png](pizzadeliverdiagram.png)
 
-pizza_order takes an input as pizzaName then waits for notify_restaurant_event to notify restaurant to preapre pizza. If the event is handled by pushing the event to event endpoint it starts another workflow by event definition
-. The other workflow triggered by is pizza_prepare. pizza_prepare workflow waits for an event from restaurant client to complete its duty. 
-The event is pizza_ready_event and this event completes a WAIT task in the first workflow. Finally a SIMPLE task in pizza_order continues to execute to 
+pizza_order takes an input as pizzaName then waits for notify_restaurant_event to notify restaurant to preapre pizza. If the event is handled by pushing the event to event endpoint it starts another workflow by event definition.The other workflow triggered by is pizza_prepare. pizza_prepare workflow waits for an event from restaurant client to complete its duty.The event is pizza_ready_event and this event completes a WAIT task in the first workflow. Finally a SIMPLE task in pizza_order continues to execute to 
 assign the order to the courier.
 
 STEPS:
