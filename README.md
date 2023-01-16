@@ -101,7 +101,7 @@ STEPS:
    }'`
 2. Check Conductor UI. Verify it waits for event: 
 ![img.png](waitforevent.png)
-3. Send pizza order event to trigger restaurant:
+3. Send pizza order event handler to trigger restaurant:
 `   curl -X 'POST' \
    'http://localhost:8080/api/event' \
    -H 'accept: */*' \
@@ -122,7 +122,7 @@ STEPS:
    ],
    "active": true
    }'`
-4. Send pizza ready event to signal pizza is ready by restaurant
+4. Send pizza ready event handler to signal pizza is ready by restaurant
 `
    curl -X 'POST' \
    'http://localhost:8080/api/event' \
@@ -144,4 +144,11 @@ STEPS:
    }'`
 5. Verify Workflow is completed successfully and output
 ![img.png](pizzaordercomplete.png)
+
 # REFERENCES
+
+* https://conductor.netflix.com/reference-docs/fork-task.html
+* https://conductor.netflix.com/how-tos/Workflows/starting-workflows.html 
+* https://conductor.netflix.com/how-tos/Workers/build-a-java-task-worker.html
+* https://conductor.netflix.com/reference-docs/event-task.html 
+* https://conductor.netflix.com/reference-docs/http-task.html
