@@ -143,6 +143,20 @@ STEPS:
 5. Verify Workflow is completed successfully and output
 ![img.png](pizzaordercomplete.png)
 
+# IMAGE BUILD PROCESS
+Note that, I have got successful builds for both platforms on windows machine but on apple silicon conductor-server amd64 build hangs
+1. cloned the repo from https://github.com/my1795/conductor.git and checkout the main branch
+2. Generated conductor-server build 
+```
+cd docker
+docker buildx build --progress=plain --no-cache --push --platform linux/arm64,linux/amd64  --tag mustafasdocker1/conductor-server:v3.13.2 -f server/Dockerfile ../
+```
+3. Generated conductor-ui build from project root 
+```
+docker buildx build --progress=plain --no-cache --push --platform linux/arm64,linux/amd64  --tag mustafasdocker1/conductor-ui:v3.13.2 -f docker/ui/Dockerfile  .
+
+```
+
 # REFERENCES
 
 * https://conductor.netflix.com/reference-docs/fork-task.html
