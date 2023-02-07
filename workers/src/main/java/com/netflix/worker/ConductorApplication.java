@@ -19,7 +19,7 @@ public class ConductorApplication {
         TaskClient taskClient = new TaskClient();
         taskClient.setRootURI("http://conductor-server:8080/api/"); // Point this to the server API
 
-        int threadCount = 1; // number of threads used to execute workers.  To avoid starvation, should be
+        int threadCount = 4; // number of threads used to execute workers.  To avoid starvation, should be
         // same or more than number of workers
         Set workers = new HashSet<Worker>();
 
